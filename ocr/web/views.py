@@ -26,3 +26,11 @@ class UploadFileView(View):
         else:
             data = {'is_valid': False}
         return JsonResponse(data)
+
+def delete_document(request, pk):
+    try:
+        Document.objects.get(pk=pk).delete()
+    except Document.DoesNotExist:
+        pass
+    document_list = Document.objects.all()
+    return render(request, 'ops/upload_file.html', {'documents': document_list})
