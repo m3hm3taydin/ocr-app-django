@@ -8,11 +8,13 @@
 
   <!-- Bootstrap -->
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
-
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.5/css/bootstrap-select.css">
 
   <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js" integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut" crossorigin="anonymous"></script>
   <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js" integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.5/js/bootstrap-select.min.js"></script>
+
 
   <!-- JS Upload scripts -->
   <script src="{% static 'js/jquery-file-upload/vendor/jquery.ui.widget.js' %}"></script>
@@ -38,15 +40,17 @@
       <div class="navbar-collapse collapse w-50 order-1 order-md-0 dual-collapse2">
           <ul class="navbar-nav mr-auto">
               <li class="nav-item active">
-                  <a class="navbar-brand" href="/">Free Online OCR</a>
+                  <a class="navbar-brand" href="/">free online ocr</a>
               </li>
-              <!-- <li class="nav-item">
-                  <a class="nav-link" href="/">start using <span class="sr-only">(current)</span></a>
-              </li> -->
-
+              <li class="nav-item">
+                  <a class="nav-link" href="/about">about ocr <span class="sr-only">(current)</span></a>
+              </li>
+              <li class="nav-item">
+                  <a class="nav-link" href="https://github.com/tesseract-ocr/tesseract">about tesseract <span class="sr-only">(current)</span></a>
+              </li>
           </ul>
       </div>
-      <div class="navbar-collapse collapse w-100">
+      <div class="navbar-collapse collapse ">
             {% block base %}
             {% endblock %}
           <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".dual-collapse2">
@@ -55,9 +59,9 @@
       </div>
       <div class="navbar-collapse collapse w-50 order-3 dual-collapse2">
           <ul class="navbar-nav ml-auto">
-              <!-- <li class="nav-item">
-                  <a class="nav-link" href="#">Log in</a>
-              </li> -->
+              <li class="nav-item">
+                  <a class="nav-link" href="https://github.com/m3hm3taydin/ocr-app-django">Github</a>
+              </li>
               <!-- <li class="nav-item">
                   <a class="nav-link" href="#"><i class="fa fa-cog fa-fw"></i></a>
               </li> -->
