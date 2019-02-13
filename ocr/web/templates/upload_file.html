@@ -1,6 +1,9 @@
 {% extends 'base.html' %}
+{% load staticfiles %}
 
-
+{% block javascript %}
+  <script src="{% static 'photos/js/basic-upload.js' %}"></script>
+{% endblock %}
 
 {% block content %}
 
@@ -14,9 +17,9 @@
 <table id="gallery" class="table bg-secondary text-white table-sm table-bordered ">
   <thead>
     <tr>
-      <th>Uploaded Files ({{ documents.count }})</th>
-      <th>Language</th>
-      <th>Operations</th>
+      <th class="w-50">Uploaded Files ({{ documents.count }})</th>
+      <th class="w-25">Language</th>
+      <th class="w-45">Operations</th>
     </tr>
   </thead>
   <tbody>

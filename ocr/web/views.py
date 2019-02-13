@@ -31,6 +31,9 @@ class UploadFileView(View):
             data = {'is_valid': False}
         return JsonResponse(data)
 
+        # document_list = Document.objects.all()
+        # return render(self.request, 'upload_file.html', {'documents': document_list})
+
 def delete_document(request, pk):
     try:
         Document.objects.get(pk=pk).delete()
