@@ -10,6 +10,7 @@ from .models import Document
 import subprocess
 
 
+
 class IndexView(TemplateView):
     template_name = 'index.html'
 
