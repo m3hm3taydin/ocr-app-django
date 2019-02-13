@@ -36,9 +36,15 @@
 
       </td>
       <td>
-        <a href="{% url 'convert_document' pk=document.pk %}" class="btn btn-sm btn-success">
-          <span class="fa fa-refresh"></span>
+        {% if document.converted_text %}
+        <a data-ref="open-modal" operation="lookdata-{{ document.pk }}" href="#" class="btn btn-sm btn-success">
+          <span class="fa fa-eye"></span> See Data
         </a>
+        {% else %}
+        <a href="{% url 'convert_document' pk=document.pk %}" class="btn btn-sm btn-success">
+          <span class="fa fa-refresh"></span> Convert
+        </a>
+        {% endif %}
         <a href="{% url 'delete_document' pk=document.pk %}" class="btn btn-sm btn-danger">
           <span class="fa fa-times"></span>
         </a>
@@ -49,7 +55,31 @@
 </table>
 
 
+<div id="modal-div"></div>
 
+
+<script type="text/javascript">
+$( document ).ready(function() {
+
+  var modalDiv = $("#modal-div");
+  $("a[data-ref='open-modal']").click(function() {
+    var ops = $(this).attr('operation');
+    url = "{% url 'null_modal' operation='changeText' %}".replace('changeText', ops);
+
+    $.ajax({
+      url: url,
+      success: function(data) {
+        modalDiv.html(data);
+        $("#myEdit").modal('show');
+
+      }
+    });
+
+  });
+
+
+  });
+  </script>
 
 
 

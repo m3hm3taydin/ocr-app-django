@@ -44,11 +44,31 @@ def convert_document(request, pk):
 
     print(document.file.url)
     print(30*'-')
-    command = 'tesseract ' + document.file.path + ' output -l eng'
+    command = 'tesseract ' + document.file.path + ' media/documents/output -l eng'
     print(command)
     print(30*'-')
     process = subprocess.Popen(command.split(), stdout=subprocess.PIPE)
     output, error = process.communicate()
-    
+
     print(output)
     print(error)
+
+    with open('media/documents/output.txt', 'r') as myfile:
+        data=myfile.read()
+
+    document.converted_text = data
+    document.save()
+
+    document_list = Document.objects.all()
+
+    return render(request, 'upload_file.html', {'documents': document_list})
+
+def modal_show(request, operation):
+    print(operation)
+    if 'lookdata' in operation:
+        document_pk = operation.split('-')
+        document = Document.objects.get(pk=document_pk[1])
+
+        context = {'return_data': document.converted_text, }
+        print('no problem')
+        return render(request, 'showdata.html', context)
