@@ -54,7 +54,7 @@ def convert_document(request, pk):
     print(error)
 
     with open('media/documents/output.txt', 'r') as myfile:
-        data=myfile.read()
+        data=myfile.read().replace('\n', '<br />')
 
     document.converted_text = data
     document.save()
