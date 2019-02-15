@@ -2,7 +2,7 @@
 {% load staticfiles %}
 
 {% block javascript %}
-  <script src="{% static 'photos/js/basic-upload.js' %}"></script>
+<script src="{% static 'photos/js/basic-upload.js' %}"></script>
 {% endblock %}
 
 {% block content %}
@@ -32,7 +32,7 @@
 
       </td>
       <td>
-        <select name="select-{{ document.pk }}" class="selectpicker" data-live-search="true">
+        <select name="document-{{ document.pk }}" class="selectpicker" data-live-search="true">
           <option value=afr>Afrikaans</option>
           <option value=amh>Amharic</option>
           <option value=ara>Arabic</option>
@@ -141,11 +141,18 @@
       </td>
       <td>
         {% if document.converted_text %}
+        <a name="link-document-{{ document.pk }}" href="/document/ops/convertdata-document-{{ document.pk }}-eng" class="btn btn-sm btn-success">
+          <span class="fa fa-refresh"></span> Convert
+        </a>
         <a data-ref="open-modal" operation="lookdata-{{ document.pk }}" href="#" class="btn btn-sm btn-success">
           <span class="fa fa-eye"></span> See Data
         </a>
         {% else %}
-        <a href="{% url 'convert_document' pk=document.pk %}" class="btn btn-sm btn-success">
+        <!-- <a href="{ url 'convert_document' pk=document.pk }" class="btn btn-sm btn-success">
+          <span class="fa fa-refresh"></span> Convert
+        </a> -->
+
+        <a name="link-document-{{ document.pk }}" href="/document/ops/convertdata-document-{{ document.pk }}-eng" class="btn btn-sm btn-success">
           <span class="fa fa-refresh"></span> Convert
         </a>
         {% endif %}
@@ -163,32 +170,37 @@
 
 
 <script type="text/javascript">
-$( document ).ready(function() {
+  $(document).ready(function() {
 
-  var modalDiv = $("#modal-div");
-  $("a[data-ref='open-modal']").click(function() {
-    var ops = $(this).attr('operation');
-    url = "{% url 'null_modal' operation='changeText' %}".replace('changeText', ops);
+    var modalDiv = $("#modal-div");
+    $("a[data-ref='open-modal']").click(function() {
+      var ops = $(this).attr('operation');
+      url = "{% url 'null_modal' operation='changeText' %}".replace('changeText', ops);
 
-    $.ajax({
-      url: url,
-      success: function(data) {
-        modalDiv.html(data);
-        $("#myEdit").modal('show');
+      $.ajax({
+        url: url,
+        success: function(data) {
+          modalDiv.html(data);
+          $("#myEdit").modal('show');
 
-      }
+        }
+      });
+
+
+
     });
 
+
   });
+
+  $('.selectpicker').change(function () {
+    selected_document = $(this).attr('name');
+    selected_lang = $(this).find("option:selected").val();
+
+    href_link = $( "a[name*='link-"+selected_document+"']" );
+    href_link.attr("href","/document/ops/convertdata-"+selected_document+"-"+selected_lang);
+
   });
-
-
-
-
-  </script>
-
-
-
-
+</script>
 
 {% endblock %}

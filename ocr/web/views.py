@@ -43,12 +43,12 @@ def delete_document(request, pk):
     document_list = Document.objects.all()
     return render(request, 'upload_file.html', {'documents': document_list})
 
-def convert_document(request, pk):
+def convert_document(request, pk, lang):
     document = Document.objects.get(pk=pk)
 
     print(document.file.url)
     print(30*'-')
-    command = 'tesseract ' + document.file.path + ' media/documents/output -l eng'
+    command = 'tesseract ' + document.file.path + ' media/documents/output -l ' + lang
     print(command)
     print(30*'-')
     process = subprocess.Popen(command.split(), stdout=subprocess.PIPE)
@@ -76,3 +76,7 @@ def modal_show(request, operation):
         context = {'return_data': document.converted_text, }
         print('no problem')
         return render(request, 'showdata.html', context)
+    elif 'convertdata' in operation:
+        print('here ---------------------')
+        document_pk = operation.split('-')
+        return convert_document(request, document_pk[2], document_pk[3])
