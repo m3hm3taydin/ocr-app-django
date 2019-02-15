@@ -61,6 +61,7 @@ def convert_document(request, pk, lang):
         data=myfile.read().replace('\n', '<br />')
 
     document.converted_text = data
+    document.selected_lang = lang
     document.save()
 
     document_list = Document.objects.all()
@@ -77,6 +78,5 @@ def modal_show(request, operation):
         print('no problem')
         return render(request, 'showdata.html', context)
     elif 'convertdata' in operation:
-        print('here ---------------------')
         document_pk = operation.split('-')
         return convert_document(request, document_pk[2], document_pk[3])

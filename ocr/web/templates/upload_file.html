@@ -185,12 +185,7 @@
 
         }
       });
-
-
-
     });
-
-
   });
 
   $('.selectpicker').change(function () {
@@ -201,6 +196,15 @@
     href_link.attr("href","/document/ops/convertdata-"+selected_document+"-"+selected_lang);
 
   });
+
+  {% for document in documents %}
+    if ('{{ document.selected_lang }}'){
+      $('select[name=document-{{ document.pk }}]').selectpicker('val', '{{ document.selected_lang }}');
+    }else{
+      $('select[name=document-{{ document.pk }}]').selectpicker('val', 'eng');
+    }
+  {% endfor %}
+
 </script>
 
 {% endblock %}

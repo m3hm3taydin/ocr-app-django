@@ -6,3 +6,4 @@ class Document(models.Model):
     file = models.ImageField(upload_to='images/')
     uploaded_at = models.DateTimeField(auto_now_add=True)
     converted_text = models.TextField(blank=True)
+    selected_lang = models.CharField(max_length=10, blank=True)
