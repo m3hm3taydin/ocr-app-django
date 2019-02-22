@@ -75,7 +75,6 @@ def modal_show(request, operation):
         document = Document.objects.get(pk=document_pk[1])
 
         context = {'return_data': document.converted_text, }
-        print('no problem')
         return render(request, 'showdata.html', context)
     elif 'convertdata' in operation:
         document_pk = operation.split('-')
