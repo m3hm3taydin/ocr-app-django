@@ -8,6 +8,7 @@ import time
 from django.http import HttpResponse, Http404, JsonResponse
 from .models import Document
 import subprocess
+import os
 
 
 
@@ -32,9 +33,6 @@ class UploadFileView(View):
             data = {'is_valid': False}
         return JsonResponse(data)
 
-        # document_list = Document.objects.all()
-        # return render(self.request, 'upload_file.html', {'documents': document_list})
-
 def delete_document(request, pk):
     try:
         Document.objects.get(pk=pk).delete()
@@ -42,6 +40,24 @@ def delete_document(request, pk):
         pass
     document_list = Document.objects.all()
     return render(request, 'upload_file.html', {'documents': document_list})
+
+def download_document(request, pk):
+    try:
+        document = Document.objects.get(pk=pk)
+        lines = document.converted_text.split('<br />')
+        file_path = "media/documents/download.txt"
+        with open(file_path, "w") as text_file:
+            for line in lines:
+                text_file.writelines(line + '\n')
+
+        with open(file_path, 'rb') as fh:
+            response = HttpResponse(fh.read(), content_type="application/vnd.ms-excel")
+            response['Content-Disposition'] = 'inline; filename=' + os.path.basename(file_path)
+            return response
+
+    except Document.DoesNotExist:
+        pass
+
 
 def convert_document(request, pk, lang):
     document = Document.objects.get(pk=pk)
