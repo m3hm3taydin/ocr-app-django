@@ -13,20 +13,20 @@
   </button>
   <input id="fileupload" type="file" name="file" multiple style="display: none;" data-url="{% url 'upload' %}" data-form-data='{"csrfmiddlewaretoken": "{{ csrf_token }}"}'>
 </div>
-
+{{ session_key }}
 <table id="gallery" class="table bg-secondary text-white table-sm table-bordered ">
   <thead>
     <tr>
-      <th class="w-50">Uploaded Files ({{ documents.count }})</th>
+      <th class="w-25">Uploaded Files ({{ documents.count }})</th>
       <th class="w-25">Language</th>
-      <th class="w-45">Operations</th>
+      <th class="w-50">Operations</th>
     </tr>
   </thead>
   <tbody>
     {% for document in documents %}
     <tr class="table">
       <td>
-        <a href="{{ document.file.url }}" class="btn btn-sm">
+        <a target="_blank" href="{{ document.file.url }}" class="btn btn-sm">
           <span class="fa fa-eye">&nbsp;{{ document.file.name }}</span>
         </a>
 
@@ -185,7 +185,6 @@
         success: function(data) {
           modalDiv.html(data);
           $("#myEdit").modal('show');
-
         }
       });
     });

@@ -7,3 +7,4 @@ class Document(models.Model):
     uploaded_at = models.DateTimeField(auto_now_add=True)
     converted_text = models.TextField(blank=True)
     selected_lang = models.CharField(max_length=10, blank=True)
+    session_key = models.CharField(max_length=100, blank=True)
